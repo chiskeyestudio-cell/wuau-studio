@@ -125,9 +125,6 @@ nav a.on:not(.btn){color:var(--blue)}
 .dd{animation:fl 4.5s ease-in-out infinite}.dd:nth-of-type(2n){animation-delay:-1.5s}.dd:nth-of-type(3n){animation-delay:-3s}
 @keyframes fl{50%{translate:0 -7px;rotate:6deg}}
 .badge{transition:transform .3s}.photo:hover .badge{transform:translateY(-4px) rotate(-2deg)}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:64px 28px}
-.stat b{display:block;font:800 clamp(36px,4.6vw,60px) Montserrat,sans-serif;color:var(--blue);line-height:1;margin-bottom:8px}
-.stat span{color:var(--slate);font-size:15px}
 .card{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,color .35s}
 .card.rv.in{transition:opacity .7s ease var(--d,0s),transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,color .35s}
 .card.rv.in:hover{transform:translateY(-8px) rotate(-.6deg);box-shadow:0 22px 40px rgba(30,34,41,.2)}
@@ -194,7 +191,6 @@ footer{border-top:1px solid rgba(255,255,255,.12)}
   nav{position:fixed;left:0;right:0;top:calc(68px + env(safe-area-inset-top,0px));background:#fff;flex-direction:column;align-items:stretch;gap:4px;padding:14px 28px 26px;border-bottom:1px solid rgba(30,34,41,.09);transform:translateY(-14px);opacity:0;pointer-events:none;transition:.3s}
   nav.open{transform:none;opacity:1;pointer-events:auto}
   nav a:not(.btn){font-size:20px;padding:12px 0}nav .btn{text-align:center;margin-top:10px}
-  .stats{grid-template-columns:1fr 1fr;padding:44px 28px}
   .ph{padding:48px 0 44px}.gal .gph{grid-column:1/-1;height:270px}
   .lb button{width:44px;height:44px}#lbp{left:10px}#lbn{right:10px}
   .out b{font-size:36px}.est{padding:24px}.card.w{grid-column:auto}.card.w h3{font-size:25px}
@@ -213,3 +209,6 @@ footer{border-top:1px solid rgba(255,255,255,.12)}
 .card.on::before,.card.on::after{opacity:1}
 .card.on::before{transform:scale(1)}
 .card.on{color:#fff}
+/* Dibujitos sobre las fotos de las tarjetas */
+.card>.dds{position:absolute;inset:0;z-index:2;opacity:0;transition:opacity .5s .15s;pointer-events:none}
+.card:hover>.dds,.card:focus-within>.dds,.card.on>.dds{opacity:1}
