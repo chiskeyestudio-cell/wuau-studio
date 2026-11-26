@@ -44,6 +44,7 @@ const fmt=(v,d,p,s)=>(p||'')+v.toFixed(d).replace('.',',')+(s||'');
 function count(el){const to=+el.dataset.count,d=+(el.dataset.dec||0);if(RM){el.textContent=fmt(to,d,el.dataset.pre,el.dataset.suf);return}let t0;const f=t=>{t0=t0||t;const k=Math.min((t-t0)/1400,1);el.textContent=fmt(to*(1-Math.pow(1-k,3)),d,el.dataset.pre,el.dataset.suf);if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);if(e.target.dataset.count!==undefined)count(e.target)}}),{threshold:.15});
 function go(){let h=location.hash.slice(1);if(!P.includes(h))h='inicio';
+if(h==='inicio'&&location.hash)history.replaceState(null,'',location.pathname+location.search);
 const pg=$('#p-'+h);$$('.page').forEach(p=>p.classList.toggle('on',p===pg));
 $$('[data-nav]').forEach(a=>a.classList.toggle('on',a.dataset.nav===h));
 document.title=TT[h];$('#nav').classList.remove('open');$('#bg').setAttribute('aria-expanded','false');
