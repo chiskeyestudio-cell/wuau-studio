@@ -1,6 +1,6 @@
 :root{--blue:#244BFF;--lime:#D8F36A;--slate:#5C6B8A;--ink:#1E2229;--white:#fff;
   box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
-html{scroll-padding-top:90px;scroll-behavior:smooth;scroll-padding-top:calc(90px + env(safe-area-inset-top,0px))}
+html{scroll-behavior:smooth;scroll-padding-top:calc(90px + env(safe-area-inset-top,0px))}
 *{box-sizing:border-box}
 body{margin:0;background:#fff;color:var(--ink);font:400 17px/1.55 "Plus Jakarta Sans",system-ui,sans-serif}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:#fff;z-index:20}
@@ -81,7 +81,6 @@ footer{background:var(--ink);color:#fff;padding:72px 0 36px}
 .cp{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:26px;font-size:13px;color:#9aa4bb}
 .cp div{display:flex;gap:22px}.cp a{text-decoration:none}
 @media (max-width:900px){
-  
   .lg img{height:36px}.wm b{font-size:21px}.wm i{font-size:9px}
   .bar .wrap{height:68px}
   .hero{grid-template-columns:1fr;gap:34px;padding:34px 28px 52px}.photo{order:-1;aspect-ratio:4/3.8}

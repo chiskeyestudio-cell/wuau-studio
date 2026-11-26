@@ -42,16 +42,39 @@ const P=['inicio','servicios','como-trabajamos','reservar'];
 const TT={inicio:'Wuau Studio · Peluquería & Estilismo Canino',servicios:'Servicios · Wuau Studio','como-trabajamos':'Cómo trabajamos · Wuau Studio',reservar:'Reservar cita · Wuau Studio'};
 const fmt=(v,d,p,s)=>(p||'')+v.toFixed(d).replace('.',',')+(s||'');
 function count(el){const to=+el.dataset.count,d=+(el.dataset.dec||0);if(RM){el.textContent=fmt(to,d,el.dataset.pre,el.dataset.suf);return}let t0;const f=t=>{t0=t0||t;const k=Math.min((t-t0)/1400,1);el.textContent=fmt(to*(1-Math.pow(1-k,3)),d,el.dataset.pre,el.dataset.suf);if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);if(e.target.dataset.count!==undefined)count(e.target)}}),{threshold:.15});
-function go(){let h=location.hash.slice(1);if(!P.includes(h))h='inicio';
-if(h==='inicio'&&location.hash)history.replaceState(null,'',location.pathname+location.search);
-const pg=$('#p-'+h);$$('.page').forEach(p=>p.classList.toggle('on',p===pg));
-$$('[data-nav]').forEach(a=>a.classList.toggle('on',a.dataset.nav===h));
-document.title=TT[h];$('#nav').classList.remove('open');$('#bg').setAttribute('aria-expanded','false');
-scrollTo({top:0,behavior:'instant'});
-$$('.rv,[data-count]',pg).forEach(e=>{if(e.dataset.count!==undefined)e.textContent=fmt(0,0,e.dataset.pre,e.dataset.suf);else e.classList.remove('in');io.observe(e)});
-$$('.fq-q').forEach(x=>{x.setAttribute('aria-expanded','false');x.nextElementSibling.style.height='0px'});}
-addEventListener('hashchange',go);go();
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);if(e.target.dataset.count!==undefined)count(e.target)}}),{threshold:.12});
+
+function go(){
+  let h=location.hash.slice(1);
+  if(!P.includes(h))h='inicio';
+  if(h==='inicio'&&location.hash)history.replaceState(null,'',location.pathname+location.search);
+  const pg=$('#p-'+h);
+  $$('.page').forEach(p=>p.classList.toggle('on',p===pg));
+  $$('[data-nav]').forEach(a=>a.classList.toggle('on',a.dataset.nav===h));
+  document.title=TT[h];
+  $('#nav').classList.remove('open');
+  $('#bg').setAttribute('aria-expanded','false');
+  window.scrollTo(0,0);
+  $$('.rv,[data-count]',pg).forEach(e=>{
+    if(e.dataset.count!==undefined)e.textContent=fmt(0,0,e.dataset.pre,e.dataset.suf);
+    else e.classList.remove('in');
+    io.observe(e);
+  });
+  $$('.fq-q').forEach(x=>{x.setAttribute('aria-expanded','false');x.nextElementSibling.style.height='0px'});
+}
+
+document.addEventListener('click',e=>{
+  const homeLink=e.target.closest('[data-home]');
+  if(homeLink){
+    e.preventDefault();
+    if(location.hash)history.pushState(null,'',location.pathname+location.search);
+    go();
+  }
+});
+
+addEventListener('hashchange',go);
+go();
+
 const bar=$('.bar'),pgb=$('#pgb'),up=$('#up');let tk=false;
 function sc(){const y=scrollY,h=document.documentElement.scrollHeight-innerHeight;pgb.style.width=(h>0?y/h*100:0)+'%';bar.classList.toggle('sm',y>20);up.classList.toggle('on',y>520);tk=false}
 addEventListener('scroll',()=>{if(!tk){tk=true;requestAnimationFrame(sc)}},{passive:true});sc();
@@ -69,13 +92,12 @@ const rf=$('#rf');try{$('#fd').min=new Date().toISOString().slice(0,10)}catch(e)
 rf.addEventListener('submit',e=>{e.preventDefault();const v=k=>rf.elements[k].value;
 const m=`Hola Wuau Studio, soy ${v('n')}. Quiero reservar para ${v('d')} (perro ${['pequeño','mediano','grande'][v('t')]}): ${S[v('s')].t}${v('f')?'. Día preferido: '+v('f'):''}.`;
 toast('Abriendo WhatsApp con tu solicitud…');window.open('https://wa.me/34644892103?text='+encodeURIComponent(m),'_blank')});
-/* Tarjetas de servicios: en móvil/táctil no hay hover, así que la foto se activa
-   cuando la tarjeta pasa por el centro de la pantalla al hacer scroll. */
+
 const touchMQ=matchMedia('(hover:none), (max-width:900px)');
 const cardIO=new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting&&touchMQ.matches){
     e.target.classList.add('on');
-    cardIO.unobserve(e.target); // una vez activada, se queda hasta recargar
+    cardIO.unobserve(e.target);
   }
 }),{rootMargin:'-20% 0px -20% 0px'});
 $$('.card').forEach(c=>cardIO.observe(c));
